@@ -42,11 +42,11 @@ if PV == price:
 else:
     while abs(PV - price) > 10000:  
         if PV < price:
-            Y = Y - 0.0001
+            Y = Y - 0.00001
             PV = discounted_cashflow(Y)
             print("Present Value - Price: ", PV - price, "YTM: ", Y)
         else:
-            Y = Y + 0.0001  
+            Y = Y + 0.00001  
             PV = discounted_cashflow(Y)
             print("Present Value - Price: ", PV - price, "Yield To Maturity: ", Y)
 ```
