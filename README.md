@@ -20,7 +20,9 @@ price = 99.903 * 0.01 * Nominal  # Price of the bond
 Coupon = 4.125 * 0.01 * Nominal  # Annual coupon payment
 Tenor = 3  # Number of years to maturity
 Y = 0.04  # Initial guess for YTM
-
+```
+## 📐 Calculation of Cash Flow and YTM
+```python
 # Calculate the CashFlows Present Value and their discrepancy with the actual price
 def discounted_cashflow(Y):
     return (
@@ -47,4 +49,6 @@ else:
             Y = Y + 0.0001  
             PV = discounted_cashflow(Y)
             print("Present Value - Price: ", PV - price, "Yield To Maturity: ", Y)
+```
 
+## Now you can price any bond (except convertible bonds)
