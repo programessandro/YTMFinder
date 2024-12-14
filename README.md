@@ -9,3 +9,38 @@ Find easily the yield to maturity of any bond
 ### Tenor: 3 Y
 ### Coupon: 4.125%
 ### Issue Price: 99.903% of Nominal Value (Tranche (1))
+
+# Input values
+Nominal = 1000000000  # Face value of the bond
+price = 99.903 * 0.01 * Nominal  # Price of the bond
+Coupon = 4.125 * 0.01 * Nominal  # Annual coupon payment
+Tenor = 3  # Number of years to maturity
+Y = 0.04  # Initial guess for YTM
+
+# Calculate the CashFlows Present Value and their discreapancy with the actual price
+def discounted_cashflow(Y):
+    return (
+        Coupon / (1 + Y) +
+        Coupon / (1 + Y)**2 +
+        Coupon / (1 + Y)**3 +
+        Nominal / (1 + Y)**3
+    )
+
+PV = discounted_cashflow(Y)
+
+print("Present Value - Price: ", PV-price)
+
+# Need to adjust the initial guess for the YTM so that price equals PV of CF
+if PV == price:
+    print(f"Yield to Maturity (YTM): {Y}")
+else:
+    while abs(PV - price) > 10000:  
+        if PV < price:
+            Y = Y - 0.0001
+            PV = discounted_cashflow(Y)
+            print("Present Value - Price: ", PV-price, "YTM: ", Y)
+        else:
+            Y = Y + 0.0001  
+            PV = discounted_cashflow(Y)
+            print("Present Value - Price: ", PV-price, "Yield To Maturity: ", Y)
+
